@@ -137,13 +137,23 @@ class GameScreenState extends State<GameScreen> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Center(
-                      child: Text(
-                        game.board![index],
-                        style: TextStyle(
-                          color: game.board![index] == 'X' ? Colors.blue : Colors.pink,
-                          fontSize: 64,
-                        ),
-                      ),
+                      child: game.board![index] == 'X'
+                          ? AnimatedDefaultTextStyle(
+                              duration: const Duration(seconds: 2),
+                              style: TextStyle(
+                                color: game.board![index] == 'X' ? Colors.red : Colors.white,
+                                fontSize: 64,
+                              ),
+                              child: Text(game.board![index]),
+                            )
+                          : AnimatedDefaultTextStyle(
+                              duration: const Duration(seconds: 2),
+                              style: TextStyle(
+                                color: game.board![index] == 'O' ? Colors.blue : Colors.white,
+                                fontSize: 64,
+                              ),
+                              child: Text(game.board![index]),
+                            ),
                     ),
                   ),
                 );
@@ -160,7 +170,6 @@ class GameScreenState extends State<GameScreen> {
           ElevatedButton.icon(
             onPressed: () {
               setState(() {
-                //erase the board
                 game.board = Game.initGameBoard();
                 lastValue = 'X';
                 gameOver = false;
